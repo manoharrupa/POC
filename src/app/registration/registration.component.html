@@ -1,0 +1,141 @@
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card ">
+        <h4 class="card-header">User-Registration</h4>
+        <div class="card-body">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12 col-md-6">
+            <label for="firstName">First Name</label> 
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': d['firstName'].errors && d['firstName'].touched }" />
+            <div *ngIf="d['firstName'].errors  && d['firstName'].touched" class="invalid-feedback">
+                <div *ngIf="d['firstName'].errors?.['required']">First Name is required</div>
+                <div *ngIf="d['firstName'].errors?.['pattern']">Only Alaphbets required</div>
+    
+            </div>
+        </div>
+            <div class="col-12 col-md-6">
+            <label for="lastName"> Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': d['lastName'].errors && d['lastName'].touched }" />
+            <div *ngIf="d['lastName'].errors && d['lastName'].touched" class="invalid-feedback">
+                <div *ngIf="d['lastName'].errors?.['required']">Last Name is required</div>
+                <div *ngIf="d['lastName'].errors?.['pattern']">Only Alaphbets required</div>
+            </div>
+        </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+            <div class="col-12 col-md-6">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': d['email'].errors && d['email'].touched }" />
+            <div *ngIf="d['email'].errors && d['email'].touched" class="invalid-feedback">
+                <div *ngIf="d['email'].errors?.['required']">Email is required</div>
+                <div *ngIf="d['email'].errors?.['email']">Invalid email format.</div>
+            </div>
+        </div>
+       
+            <div class="col-12 col-md-6">
+            <label for="dob">DOB</label>
+            <input type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': d['dob'].errors && d['dob'].touched}" [max]= "maxDate()" />
+            <div *ngIf="d['dob'].errors && d['dob'].touched" class="invalid-feedback">
+                <div *ngIf="d['dob'].errors?.['required']">DOB is required</div>
+            </div>
+        </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12 col-md-6">
+            <label for="gender">Gender</label>
+            <select formControlName="gender"class="form-control" [ngClass]="{ 'is-invalid': d['gender'].errors && d['gender'].touched }">
+                <option value="" disabled>Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Others</option>
+              </select>        
+              <div *ngIf="d['gender'].errors && d['gender'].touched" class="invalid-feedback">
+                <div *ngIf="d['gender'].errors?.['required']">gender is required</div>
+            </div>
+        </div>
+       
+            <div class="col-12 col-md-6">
+            <label for="adharCard">Aadhaar Card</label>
+            <input type="text" formControlName="adharCard" class="form-control" [ngClass]="{ 'is-invalid': d['adharCard'].errors && d['adharCard'].touched }" />
+            <div *ngIf="d['adharCard'].errors && d['adharCard'].touched" class="invalid-feedback">
+                <div *ngIf="d['adharCard'].errors?.['required']">Aadhar Number is required</div>
+                <div *ngIf="d['adharCard'].errors?.['pattern']">12 digits number required</div>
+            </div>
+        </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12 col-md-6">
+            <label for="countryCode">CountryCode</label>
+            <select formControlName="countryCode"class="form-control" [ngClass]="{ 'is-invalid': d['countryCode'].errors && d['countryCode'].touched }">
+                <option *ngFor="let country of countryCode" [value]="country.code">{{ country.name }} ({{ country.code }})</option>
+              </select>        
+              <div *ngIf="d['countryCode'].errors && d['countryCode'].touched" class="invalid-feedback">
+                <div *ngIf="d['countryCode'].errors?.['required']">country Code is required</div>
+            </div>
+        </div>
+       
+            <div class="col-12 col-md-6">
+            <label for="Mobile">Mobile</label>
+            <input type="text" formControlName="contactNo" class="form-control" [ngClass]="{ 'is-invalid': d['contactNo'].errors && d['contactNo'].touched }" />
+            <div *ngIf="d['contactNo'].errors && d['contactNo'].touched" class="invalid-feedback">
+                <div *ngIf="d['contactNo'].errors?.['required']">mobile Number is required</div>
+                <div *ngIf="d['contactNo'].errors?.['pattern']">10 digits number required</div>
+            </div>
+        </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12 col-md-6">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': d['password'].errors && d['password'].touched }" />
+            <div *ngIf="d['password'].errors && d['password'].touched" class="invalid-feedback">
+                <div *ngIf="d['password'].errors?.['required']">Password is required</div>
+                <div *ngIf="d['password'].errors?.['uppercase']">Password must contain at least one uppercase letter. </div>
+                <div *ngIf="d['password'].errors?.['lowercase']">Password must contain at least one lowercase letter.</div>
+                <div *ngIf="d['password'].errors?.['digit']">Password must contain at least one digit.</div>
+                <div *ngIf="d['password'].errors?.['specialcase']">Password must contain at least one SpecialCharacter </div>
+                <div *ngIf="d['password'].errors?.['minlength']">Password must contain at least eight digits</div>
+                
+            </div>
+        </div>
+       
+            <div class="col-12 col-md-6">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': d['confirmPassword'].errors && d['confirmPassword'].touched }" />
+            <div *ngIf="d['confirmPassword'].errors && d['confirmPassword'].touched" class="invalid-feedback">
+                <div *ngIf="d['confirmPassword'].errors?.['required']">confirm Password is required</div>
+                <div *ngIf="d['confirmPassword'].errors?.['mismatch']">Passwords do not Matched.</div>
+    
+            </div>
+        </div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-center align-items-center">
+            <div><button  class="btn btn-primary" type="submit" [disabled]="!this.registrationForm.valid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Register
+            </button>
+        </div>
+        <div class="mr-5"><button  class="btn btn-danger " (click)="Oncancel()" type="button">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Cancel
+        </button>
+    </div>
+            
+        </div>  
+        <div class="login-btn">
+            <p class="p-1">already register ?</p>
+        </div>
+    
+    </form>
+    </div>
+    </div>
+    </div>
